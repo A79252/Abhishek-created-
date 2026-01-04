@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SUNAINA PAL 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+
+body{
+  background:linear-gradient(180deg,#16002a,#000);
+  color:#fff;
+  overflow-x:hidden;
+}
+
+/* START OVERLAY */
+#startOverlay{
+  position:fixed;
+  inset:0;
+  background:linear-gradient(180deg,#16002a,#000);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+
+#startOverlay button{
+  padding:18px 38px;
+  font-size:1.2rem;
+  border:none;
+  border-radius:40px;
+  background:#ff4da6;
+  color:#fff;
+  box-shadow:0 0 30px #ff4da6;
+}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+}
+
+.hero h1{
+  font-size:2.4rem;
+  text-shadow:0 0 20px #ff4da6;
+}
+
+.hero p{margin-top:12px;opacity:.85}
+
+/* GALLERY */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+  padding:25px;
+}
+
+.photo{
+  aspect-ratio:1/1;
+  border-radius:50%;
+  overflow:hidden;
+  box-shadow:0 0 25px rgba(255,105,180,.7);
+  animation:floating 4s ease-in-out infinite;
+}
+
+.photo:nth-child(1){animation-delay:.2s}
+.photo:nth-child(2){animation-delay:.6s}
+.photo:nth-child(3){animation-delay:1s}
+.photo:nth-child(4){animation-delay:1.4s}
+.photo:nth-child(5){animation-delay:1.8s}
+.photo:nth-child(6){animation-delay:2.2s}
+.photo:nth-child(7){animation-delay:2.6s}
+
+.photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+@keyframes floating{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-15px)}
+  100%{transform:translateY(0)}
+}
+
+/* FOOTER */
+.footer{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+}
+
+video{
+  width:100%;
+  max-width:420px;
+  border-radius:20px;
+  box-shadow:0 0 35px #ff69b4;
+  opacity:0;
+  transition:opacity 1.2s ease;
+}
+
+video.playing{opacity:1}
+
+/* FLOATING HEARTS */
+.heart{
+  position:fixed;
+  bottom:-30px;
+  animation:floatUp 9s linear forwards;
+  opacity:.7;
+}
+
+@keyframes floatUp{
+  to{transform:translateY(-120vh);opacity:0}
+}
+</style>
+</head>
+
+<body>
+
+<!-- TAP TO START -->
+<div id="startOverlay">
+  <button>👆 Tap to Start👆</button>
+</div>
+
+<!-- BACKGROUND MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="_Tum_Mujhse_Ruth_Jaogi_Didi_~_Full_Song____Titu_Mama_Dhindora_Episode_05(128k).mp3" type="audio/mpeg">
+</audio>
+
+<section class="hero">
+  <h1>Sunaina Pal Memories 🫠</h1>
+  <p>Scroll down & feel the magic With song  ✨</p>
+</section>
+
+<section class="gallery">
+  <div class="photo"><img src="1767451975060.jpg"></div>
+  <div class="photo"><img src="1767452145347.jpg"></div>
+  <div class="photo"><img src="1767452222016.jpg"></div>
+  <div class="photo"><img src="1767452308459.jpg"></div>
+  <div class="photo"><img src="1767505925595.jpg"></div>
+  <div class="photo"><img src="1767506613243.jpg"></div>
+  <div class="photo"><img src="1767507088983.jpg"></div>
+</section>
+
+<footer class="footer">
+  <h2>Last Surprise 🎥</h2>
+
+  <video id="endVideo" controls playsinline>
+    <source src="InShot_20260104_123744434.mp4" type="video/mp4">
+  </video>
+
+  <p style="margin-top:15px;opacity:.8;">SUNAINA 💖</p>
+</footer>
+
+<script>
+const music = document.getElementById("bgMusic");
+const video = document.getElementById("endVideo");
+const overlay = document.getElementById("startOverlay");
+
+/* USER START */
+overlay.addEventListener("click",()=>{
+  overlay.style.display="none";
+  music.play();
+});
+
+/* VIDEO OBSERVER */
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      music.pause();
+      video.muted=false;
+      video.classList.add("playing");
+      video.play();
+    }
+  });
+},{threshold:0.6});
+
+observer.observe(video);
+
+/* FLOATING HEARTS */
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML=["💖","💕","💞","💗"][Math.floor(Math.random()*4)];
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=(18+Math.random()*20)+"px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),9000);
+},900);
+</script>
+
+</body>
+</html>
